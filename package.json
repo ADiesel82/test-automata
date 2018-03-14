@@ -1,0 +1,28 @@
+{
+  "name": "test-automata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "./node_modules/typescript/bin/tsc",
+    "watch": "nodemon --exec ts-node -- src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ADiesel82/test-automata.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ADiesel82/test-automata/issues"
+  },
+  "homepage": "https://github.com/ADiesel82/test-automata#readme",
+  "dependencies": {
+    "automata": "^3.0.4"
+  },
+  "devDependencies": {
+    "tslint": "^3.15.1",
+    "typescript": "^1.8.10"
+  }
+}
