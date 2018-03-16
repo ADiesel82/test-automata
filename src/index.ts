@@ -1,6 +1,9 @@
+import {Message, Session} from "automata";
 import fsm from "./fsm";
+import FsmController from "./controllers/fsm";
 import {WsServer} from "./wss";
 import * as express from "express";
+import {Message, Session} from "automata/src/automata";
 
 
 class Test {
@@ -14,10 +17,18 @@ class Test {
 
         this.wss.initWebSocket({port: 5001});
 
-        this.wss.on("connected", (connectedCount: number) =>{
-            if (connectedCount === 6) {
-                this.fsm.start(this.wss.getClients());
-            }
+        this.wss.on("connected", (connectedCount: number) => {
+            console.log("Connected", connectedCount);
+
+            this.fsm.start(this.wss.getClients()).then(function (session: Session<FsmController>, message?: Message) {
+                console.log(message);
+                if (connectedCount === 6) {
+                    const initStat = "u" + Math.round(Math.random() * 5) + 1;
+                    session.postMessage({ msgId: initStat });
+                } else {
+
+                }
+            });
         });
     }
 }

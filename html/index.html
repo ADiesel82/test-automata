@@ -41,10 +41,10 @@
                 });
             },
             connectClient: function () {
-                let ws = new WebSocket("ws://localhost:5001");
-                let self = this;
+                const ws = new WebSocket("ws://localhost:5001");
+                const self = this;
                 ws.onmessage = function (event) {
-                    var msg = JSON.parse(event.data);
+                    const msg = JSON.parse(event.data);
                     switch(msg){
                         case "id":
                             self.clientID = msg.id;
@@ -57,6 +57,9 @@
             }
         }
     });
+    app.addClient();
+    app.addClient();
+    app.addClient();
     app.addClient();
     app.addClient();
     app.addClient();

@@ -35,6 +35,6 @@
     "eslint-plugin-react": "^7.7.0",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.7.0",
-    "typescript": "^1.8.10"
+    "typescript": "^2.7.2"
   }
 }

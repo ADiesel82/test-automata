@@ -1,15 +1,15 @@
-import {Automata, Message, Session} from "automata";
+import {Automata} from "automata";
 import FsmTest1 from "./controllers/fsm";
 
 export default class FSM {
 
     protected fsmName = "FsmTest1";
 
-    init(dynamicStart: boolean = false): void {
+    init(initStat: string = 'u1'): void {
 
         let initStat = 'u1';
         if (dynamicStart) {
-            initStat = "u" + Math.round(Math.random() * 5) + 1;
+
         }
 
         const stepTimeoutMS = 5000;
@@ -46,15 +46,6 @@ export default class FSM {
         return Automata.CreateSession(
             new FsmTest1(clients),
             this.fsmName
-        ).then(
-            function success(s: Session<FsmTest1>, m: Message) {
-                console.log(m);
-                // console.log(s, m);
-                // s.dispatchMessage({msgId: "u1"});
-            },
-            function error(s: Session<FsmTest1>, m: Error) {
-                console.log(s, m);
-            }
         );
     }
 }

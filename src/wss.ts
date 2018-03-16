@@ -1,13 +1,13 @@
 import *  as WebSocket from "ws";
 import * as events from "events";
 
-export interface Client{
+export interface Client {
     id: number,
     broadcast: any,
     ws: WebSocket
 }
 
-export class WsServer extends events.EventEmitter{
+export class WsServer extends events.EventEmitter {
     protected isAlive: boolean = false;
     private clients: Client[] = [];
 
@@ -39,7 +39,7 @@ export class WsServer extends events.EventEmitter{
         });
 
         const interval = setInterval(() => {
-            wss.clients.forEach(function each(ws : WebSocket) {
+            wss.clients.forEach(function each(ws: WebSocket) {
                 if (ws.isAlive === false) return ws.terminate();
                 ws.isAlive = false;
                 ws.ping("", false, true);
@@ -61,11 +61,11 @@ export class WsServer extends events.EventEmitter{
         }
     }
 
-    private onClientDisconnect(client){
+    private onClientDisconnect(client) {
         this.clients.splice(this.clients.indexOf(client), 1);
     }
 
-    private initClientMessaging(ws){
+    private initClientMessaging(ws) {
         ws.on("message", (message: string) => {
             this.broadcast(message);
         });
