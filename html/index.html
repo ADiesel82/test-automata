@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FSM test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="card">
+            <a href="#" @click="addClient" class="btn btn-primary">Add client</a>
+        </div>
+    </div>
+    <div class="row">
+        <div v-for="(item, index) in clients">
+            <div class="card">
+                <h2>{{ item.name }}</h2>
+                <p class="card-text">{{ item.message }}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    Vue.config.devtools = true;
+    let app = new Vue({
+        el: '#app',
+        data: {
+            clients: []
+        },
+        methods: {
+            addClient: function () {
+                this.clients.push({
+                    clientID: undefined,
+                    name: 'Client ' + (this.clients.length + 1),
+                    messages: '',
+                    connection: this.connectClient()
+                });
+            },
+            connectClient: function () {
+                let ws = new WebSocket("ws://localhost:5001");
+                let self = this;
+                ws.onmessage = function (event) {
+                    var msg = JSON.parse(event.data);
+                    switch(msg){
+                        case "id":
+                            self.clientID = msg.id;
+                            break;
+                        default:
+                            self.message = msg;
+                    }
+                };
+                return ws;
+            }
+        }
+    });
+    app.addClient();
+    app.addClient();
+    app.addClient();
+</script>
+</body>
+</html>
